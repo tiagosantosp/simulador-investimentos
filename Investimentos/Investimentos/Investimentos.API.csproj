@@ -22,7 +22,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Investimentos.Application\Investimentos.Application.csproj" />
-    <ProjectReference Include="..\Investmentos.Infrastructure\Investmentos.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

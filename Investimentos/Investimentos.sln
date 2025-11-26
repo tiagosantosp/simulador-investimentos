@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Investimentos.Domain", "Inv
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Investimentos.Application", "Investimentos.Application\Investimentos.Application.csproj", "{F0319898-CF0B-41C8-9F31-3077FF4A607A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Investmentos.Infrastructure", "Investmentos.Infrastructure\Investmentos.Infrastructure.csproj", "{28575C56-812F-49E7-A951-296F0193B36F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Investimentos.Infrastructure", "Investmentos.Infrastructure\Investimentos.Infrastructure.csproj", "{28575C56-812F-49E7-A951-296F0193B36F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
