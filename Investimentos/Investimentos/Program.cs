@@ -23,6 +23,7 @@ builder.Services.AddScoped<IPriceHistoryRepository, PriceHistoryRepository>();
 builder.Services.AddScoped<IAssetService, AssetService>();
 builder.Services.AddScoped<IPortfolioService, PortfolioService>();
 builder.Services.AddScoped<IRebalancingService, RebalancingService>();
+builder.Services.AddScoped<IRiskAnalysisService, RiskAnalysisService>();
 
 // 4. Configurar AutoMapper
 builder.Services.AddAutoMapper(typeof(MappingProfile));
