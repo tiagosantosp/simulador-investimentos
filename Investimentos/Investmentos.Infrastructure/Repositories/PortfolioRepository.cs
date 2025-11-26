@@ -59,6 +59,19 @@ namespace Investimentos.Infrastructure.Repositories
             }
         }
 
+        public async Task<Position?> GetPositionByIdAsync(int positionId)
+        {
+            return await _context.Positions
+                .Include(p => p.Asset)
+                .FirstOrDefaultAsync(p => p.Id == positionId);
+        }
+
+        public async Task UpdatePositionAsync(Position position)
+        {
+            _context.Positions.Update(position);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<bool> AnyAsync() => await _context.Portfolios.AnyAsync();
     }
 }

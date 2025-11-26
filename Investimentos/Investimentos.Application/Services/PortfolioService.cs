@@ -78,5 +78,63 @@ namespace Investimentos.Application.Services
 
             await _portfolioRepo.AddPositionAsync(position);
         }
+
+        public async Task UpdatePositionAsync(int portfolioId, int positionId, int quantity, decimal averagePrice)
+        {
+            var position = await _portfolioRepo.GetPositionByIdAsync(positionId);
+
+            if (position == null) throw new KeyNotFoundException("Posição não encontrada.");
+            if (position.PortfolioId != portfolioId) throw new InvalidOperationException("Esta posição não pertence a este portfólio.");
+
+            // Atualiza os valores
+            position.Quantity = quantity;
+            position.AveragePrice = averagePrice;
+            position.LastTransaction = DateTime.UtcNow;
+
+            // Se quantidade for zero, removemos a posição? Regra de negócio opcional.
+            // Aqui vamos apenas atualizar.
+
+            await _portfolioRepo.UpdatePositionAsync(position);
+        }
+
+        public async Task RemovePositionAsync(int portfolioId, int positionId)
+        {
+            var position = await _portfolioRepo.GetPositionByIdAsync(positionId);
+
+            if (position == null) throw new KeyNotFoundException("Posição não encontrada.");
+            if (position.PortfolioId != portfolioId) throw new InvalidOperationException("Esta posição não pertence a este portfólio.");
+
+            await _portfolioRepo.DeletePositionAsync(positionId);
+        }
+
+        public async Task<PortfolioPerformanceDto> GetPerformanceAsync(int portfolioId)
+        {
+            var portfolio = await GetByIdAsync(portfolioId); // Reusa a lógica de cálculo que já fizemos
+            if (portfolio == null) return null;
+
+            var result = new PortfolioPerformanceDto
+            {
+                PortfolioId = portfolio.Id,
+                Name = portfolio.Name,
+                TotalInvested = portfolio.TotalCost,
+                CurrentValue = portfolio.CurrentValue,
+                TotalReturn = portfolio.CurrentValue - portfolio.TotalCost,
+                ReturnPercentage = portfolio.TotalReturn * 100 // Convertendo para %
+            };
+
+            // Encontrar melhor e pior ativo
+            if (portfolio.Positions.Any())
+            {
+                var orderedPositions = portfolio.Positions.OrderByDescending(p => p.Performance).ToList();
+
+                var best = orderedPositions.First();
+                result.BestAsset = new AssetPerformanceDto { Symbol = best.AssetSymbol, ReturnPercentage = best.Performance * 100 };
+
+                var worst = orderedPositions.Last();
+                result.WorstAsset = new AssetPerformanceDto { Symbol = worst.AssetSymbol, ReturnPercentage = worst.Performance * 100 };
+            }
+
+            return result;
+        }
     }
 }

@@ -7,5 +7,7 @@ namespace Investimentos.Application.Interfaces
         Task<List<AssetDto>> GetAllAsync();
         Task<AssetDto?> GetBySymbolAsync(string symbol);
         Task UpdatePriceAsync(string symbol, decimal newPrice);
+        Task<AssetDto?> GetByIdAsync(int id);
+        Task<AssetDto> CreateAsync(CreateAssetDto dto);
     }
 }

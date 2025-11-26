@@ -8,5 +8,8 @@ namespace Investimentos.Application.Interfaces
         Task<PortfolioDto?> GetByIdAsync(int id);
         Task<List<PortfolioDto>> GetAllByUserIdAsync(string userId);
         Task AddPositionAsync(int portfolioId, string symbol, int quantity, decimal price);
+        Task UpdatePositionAsync(int portfolioId, int positionId, int quantity, decimal averagePrice);
+        Task RemovePositionAsync(int portfolioId, int positionId);
+        Task<PortfolioPerformanceDto> GetPerformanceAsync(int portfolioId);
     }
 }

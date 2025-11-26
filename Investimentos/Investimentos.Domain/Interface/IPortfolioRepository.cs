@@ -11,5 +11,7 @@ namespace Investimentos.Domain.Interface
         Task DeletePositionAsync(int positionId);
         Task AddPositionAsync(Position position);
         Task<bool> AnyAsync();
+        Task<Position?> GetPositionByIdAsync(int positionId);
+        Task UpdatePositionAsync(Position position);
     }
 }

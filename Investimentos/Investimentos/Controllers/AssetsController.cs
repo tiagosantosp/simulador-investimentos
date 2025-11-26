@@ -22,6 +22,14 @@ namespace Investimentos.API.Controllers
             return Ok(assets);
         }
 
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var asset = await _service.GetByIdAsync(id);
+            if (asset == null) return NotFound("Ativo não encontrado.");
+            return Ok(asset);
+        }
+
         [HttpGet("search")]
         public async Task<IActionResult> GetBySymbol([FromQuery] string symbol)
         {
@@ -30,12 +38,30 @@ namespace Investimentos.API.Controllers
             return Ok(asset);
         }
 
-        [HttpPut("{symbol}/price")]
-        public async Task<IActionResult> UpdatePrice(string symbol, [FromBody] decimal newPrice)
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] CreateAssetDto dto)
+        {
+            try
+            {
+                var created = await _service.CreateAsync(dto);
+                return CreatedAtAction(nameof(GetBySymbol), new { symbol = created.Symbol }, created);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut("{id}/price")]
+        public async Task<IActionResult> UpdatePrice(int id, [FromBody] decimal newPrice)
         {
             if (newPrice <= 0) return BadRequest("O preço deve ser maior que zero.");
 
-            await _service.UpdatePriceAsync(symbol, newPrice);
+            // Nota: Se seu service usa Symbol, precisamos buscar o ativo primeiro
+            var asset = await _service.GetByIdAsync(id);
+            if (asset == null) return NotFound();
+
+            await _service.UpdatePriceAsync(asset.Symbol, newPrice);
             return NoContent();
         }
     }
