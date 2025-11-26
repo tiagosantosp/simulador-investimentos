@@ -24,7 +24,7 @@ namespace Investimentos.Application.Services
         {
             var portfolio = _mapper.Map<Portfolio>(dto);
             portfolio.CreatedAt = DateTime.UtcNow;
-            portfolio.TotalInvestment = 0; // Começa vazio
+            portfolio.TotalInvestment = 0; 
 
             await _portfolioRepo.AddAsync(portfolio);
             return _mapper.Map<PortfolioDto>(portfolio);
