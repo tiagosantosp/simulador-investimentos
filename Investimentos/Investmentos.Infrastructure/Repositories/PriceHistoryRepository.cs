@@ -1,5 +1,5 @@
 ﻿using Investimentos.Domain.Entities;
-using Investimentos.Domain.Interface;
+using Investimentos.Domain.Interfaces;
 using Investimentos.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 

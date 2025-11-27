@@ -34,6 +34,7 @@ namespace Investimentos.Infrastructure.Data
             if (seedData.Assets != null)
             {
                 await context.Assets.AddRangeAsync(seedData.Assets);
+                await context.SaveChangesAsync(); 
             }
 
             // 2. Salvar Portfolios 
