@@ -1,7 +1,6 @@
 using Investimentos.Application.Interfaces;
 using Investimentos.Application.Mappings;
 using Investimentos.Application.Services;
-using Investimentos.Domain.Interface;
 using Investimentos.Domain.Interfaces;
 using Investimentos.Infrastructure.Data;
 using Investimentos.Infrastructure.Repositories;

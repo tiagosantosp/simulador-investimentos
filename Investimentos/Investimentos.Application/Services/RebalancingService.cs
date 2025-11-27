@@ -1,6 +1,5 @@
 ﻿using Investimentos.Application.DTOs;
 using Investimentos.Application.Interfaces;
-using Investimentos.Domain.Interface;
 using Investimentos.Domain.Interfaces;
 
 namespace Investimentos.Application.Services

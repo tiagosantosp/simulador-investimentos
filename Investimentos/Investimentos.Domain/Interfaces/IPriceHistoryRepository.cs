@@ -1,6 +1,6 @@
 ﻿using Investimentos.Domain.Entities;
 
-namespace Investimentos.Domain.Interface
+namespace Investimentos.Domain.Interfaces
 {
     public interface IPriceHistoryRepository
     {
